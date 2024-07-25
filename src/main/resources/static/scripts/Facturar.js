@@ -320,7 +320,7 @@ try {
 
         } else {
 
-            let url = '/facturacion/detalles';
+            let url = '/solicitarcita';
             let params = {
                 "idMoneda": idMoneda
             }

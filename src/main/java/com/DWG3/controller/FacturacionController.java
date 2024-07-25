@@ -36,34 +36,9 @@ public class FacturacionController {
     @Autowired
     ClienteServiceImpl clienteBL;
     
-    @RequestMapping("/facturacion")
+    @RequestMapping("/solicitarcita")
     public String facturar(Model model) {
         model.addAttribute("attribute", "value");
-        return "Facturar";
+        return "SolicitarCita";
     }
-    
-    
-    @GetMapping("/facturacion/detalles")
-    @ResponseBody
-    public List<Detalles> obtenerDetallesFactura(@RequestParam int idMoneda) {
-        log.info("Este es el parametro: " + idMoneda);
-        List<Detalles> datos = svc.obtenerDetallesFactura(idMoneda);
-        log.info("DATOS: " + datos);
-        return datos;
-    }
-    
-    
-    @PostMapping("/facturacion/guardarCliente")
-    @ResponseBody
-    public String guardarCliente(@RequestBody Cliente model) {
-        var status = "";
-        try{
-            clienteBL.guardarCliente(model);
-            return status = "success";
-        }
-        catch (Exception ex){
-            return status = ex.toString();
-        }
-    }
-    
 }
