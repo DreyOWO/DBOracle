@@ -1,0 +1,205 @@
+--1
+CREATE OR REPLACE PROCEDURE NuevoUsuario (
+p_Id_usuario IN INT,
+p_Nombre IN VARCHAR2,
+p_Apellido_1 IN VARCHAR2,
+p_Apellido_2 IN VARCHAR2,
+p_Correo IN VARCHAR2,
+p_Telefono IN INT,
+p_Contrasena IN VARCHAR2,
+p_Contacto_emergencia IN VARCHAR2
+) AS
+BEGIN
+    INSERT INTO Usuario (Id_usuario, Nombre, Apellido_1, Apellido_2, Correo, Telefono, Contrasena, Contacto_emergencia)
+    VALUES (p_Id_usuario, p_Nombre, p_Apellido_1, p_Apellido_2, p_Correo, p_Telefono, p_Contrasena, p_Contacto_emergencia);
+END;
+/
+
+--2
+CREATE OR REPLACE PROCEDURE ActualizarInfoUsuario (
+p_Id_usuario IN INT,
+p_Nombre IN VARCHAR2,
+p_Apellido_1 IN VARCHAR2,
+p_Apellido_2 IN VARCHAR2,
+p_Correo IN VARCHAR2,
+p_Telefono IN INT,
+p_Contrasena IN VARCHAR2,
+p_Contacto_emergencia IN VARCHAR2
+) AS
+BEGIN
+    UPDATE Usuario
+    SET Nombre = p_Nombre,
+        Apellido_1 = p_Apellido_1,
+        Apellido_2 = p_Apellido_2,
+        Correo = p_Correo,
+        Telefono = p_Telefono,
+        Contrasena = p_Contrasena,
+        Contacto_emergencia = p_Contacto_emergencia
+    WHERE Id_usuario = p_Id_usuario;
+END;
+/
+
+--3
+CREATE OR REPLACE PROCEDURE EliminarUsuario (
+p_Id_usuario IN INT
+) AS
+BEGIN
+    DELETE FROM Usuario
+    WHERE Id_usuario = p_Id_usuario;
+END;
+/
+
+--4
+CREATE OR REPLACE PROCEDURE NuevoVehiculo (
+p_Placa IN INT,
+p_Id_cliente IN INT,
+p_Tipo IN VARCHAR2,
+p_Marca IN VARCHAR2,
+p_Modelo IN VARCHAR2,
+p_Año IN INT
+) AS
+BEGIN
+    INSERT INTO Vehiculos (Placa, Id_cliente, Tipo, Marca, Modelo, Año)
+    VALUES (p_Placa, p_Id_cliente, p_Tipo, p_Marca, p_Modelo, p_Año);
+END;
+/
+
+--5
+CREATE OR REPLACE PROCEDURE ActualizarInfoVehiculo (
+p_Placa IN INT,
+p_Tipo IN VARCHAR2,
+p_Marca IN VARCHAR2,
+p_Modelo IN VARCHAR2,
+p_Año IN INT
+) AS
+BEGIN
+    UPDATE Vehiculos
+    SET Tipo = p_Tipo,
+        Marca = p_Marca,
+        Modelo = p_Modelo,
+        Año = p_Año
+    WHERE Placa = p_Placa;
+END;
+/
+
+--6
+CREATE OR REPLACE PROCEDURE EliminarVehiculo (
+p_Placa IN INT
+) AS
+BEGIN
+    DELETE FROM Vehiculos
+    WHERE Placa = p_Placa;
+END;
+/
+
+--7
+CREATE OR REPLACE PROCEDURE NuevaCita (
+p_Id_cita IN INT,
+p_Id_cliente IN INT,
+p_Placa IN INT,
+p_Fecha IN DATE,
+p_Motivo IN VARCHAR2,
+p_Estado IN VARCHAR2,
+p_Motivo_cancelacion IN VARCHAR2
+) AS
+BEGIN
+    INSERT INTO Citas (Id_cita, Id_cliente, Placa, Fecha, Motivo, Estado, Motivo_cancelacion)
+    VALUES (p_Id_cita, p_Id_cliente, p_Placa, p_Fecha, p_Motivo, p_Estado, p_Motivo_cancelacion);
+END;
+/
+
+--8
+CREATE OR REPLACE PROCEDURE ActualizarEstadoDeCita (
+p_Id_cita IN INT,
+p_Estado IN VARCHAR2
+) AS
+BEGIN
+    UPDATE Citas
+    SET Estado = p_Estado
+    WHERE Id_cita = p_Id_cita;
+END;
+/
+
+--9
+CREATE OR REPLACE PROCEDURE EliminarCita (
+p_Id_cita IN INT
+) AS
+BEGIN
+    DELETE FROM Citas
+    WHERE Id_cita = p_Id_cita;
+END;
+/
+
+--10
+CREATE OR REPLACE PROCEDURE ConsultarDetallesCita (
+p_Id_cita IN INT,
+p_Detalles OUT SYS_REFCURSOR
+) AS
+BEGIN
+    OPEN p_Detalles FOR
+    SELECT *
+    FROM Citas
+    WHERE Id_cita = p_Id_cita;
+END;
+/
+
+--11
+CREATE OR REPLACE PROCEDURE InsertarNuevoProducto (
+p_Id_producto IN INT,
+p_Nombre IN VARCHAR2,
+p_Descripcion IN VARCHAR2,
+p_Cantidad IN INT,
+p_Precio IN DECIMAL
+) AS
+BEGIN
+    INSERT INTO Inventario (Id_producto, Nombre, Descripcion, Cantidad, Precio)
+    VALUES (p_Id_producto, p_Nombre, p_Descripcion, p_Cantidad, p_Precio);
+END;
+/
+
+--12
+CREATE OR REPLACE PROCEDURE ActualizarCantidadDeProducto (
+p_Id_producto IN INT,
+p_Cantidad IN INT
+) AS
+BEGIN
+    UPDATE Inventario
+    SET Cantidad = p_Cantidad
+    WHERE Id_producto = p_Id_producto;
+END;
+/
+
+--13
+CREATE OR REPLACE PROCEDURE EliminarProducto (
+p_Id_producto IN INT
+) AS
+BEGIN
+    DELETE FROM Inventario
+    WHERE Id_producto = p_Id_producto;
+END;
+/
+
+--14
+CREATE OR REPLACE PROCEDURE EliminarFactura (
+p_Id_factura IN INT
+) AS
+BEGIN
+    DELETE FROM Facturas
+    WHERE Id_factura = p_Id_factura;
+    
+    COMMIT;
+END;
+/
+
+--15
+CREATE OR REPLACE PROCEDURE ConsultarDetallesFactura (
+p_Id_factura IN INT,
+p_Detalles OUT SYS_REFCURSOR
+) AS
+BEGIN
+    OPEN p_Detalles FOR
+    SELECT *
+    FROM Facturas
+    WHERE Id_factura = p_Id_factura;
+END;
+/
