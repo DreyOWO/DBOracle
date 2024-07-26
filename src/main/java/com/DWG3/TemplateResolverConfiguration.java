@@ -27,7 +27,7 @@ public class TemplateResolverConfiguration {
     @Bean
     public SpringResourceTemplateResolver TemplateResolver_1() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setPrefix("templates/solicitarcita/");
+        templateResolver.setPrefix("templates/facturar/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCharacterEncoding("UTF-8");
@@ -39,7 +39,7 @@ public class TemplateResolverConfiguration {
     @Bean
     public SpringResourceTemplateResolver TemplateResolver_2() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setPrefix("templates/solicitarcita/");
+        templateResolver.setPrefix("templates/facturacion/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCharacterEncoding("UTF-8");
