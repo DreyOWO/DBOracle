@@ -27,15 +27,6 @@
         <section class="contenido">
             <form>
                 <div class="row">
-                    <div class="col-lg-5 col-5">
-                        <label>Vehiculo</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-font"></i></span>
-                            </div>
-                            <input id="txtNombreServicio" name="" type="text" class="form-control">
-                        </div>
-                    </div>
                     <div class="col-lg-3 col-3">
                         <label>Placa</label>
                         <div class="input-group mb-3">
@@ -46,7 +37,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-3">
-                        <label>Marca</label>
+                        <label>Motivo</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-font"></i></span>
@@ -56,28 +47,9 @@
                     </div>
                 </div>
                 <br>
-                <div class="row">
-                    <div class="col-lg-3 col-3">
-                        <label>Modelo</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-font"></i></span>
-                            </div>
-                            <input id="txtNombreServicio" name="" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-2">
-                        <label>Año</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-font"></i></span>
-                            </div>
-                            <input id="txtNombreServicio" name="" type="number" class="form-control">
-                        </div>
-                    </div>
-                    
+                <div class="row">      
                     <div class="col-lg-2 col-2" style="margin-top: 30px">
-                        <button type="button" class="btn btn-success">Agregar vehículo</button>
+                        <button type="button" class="btn btn-success">Solicitar cita</button>
                     </div>
                 </div>
             </form>
@@ -86,17 +58,15 @@
                 <table id="dtServicios" class="table-bordered">
                     <thead>
                         <tr>
-                            <th>Vehiculo</th>
                             <th>Placa</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Año</th>
+                            <th>Fecha</th>
+                            <th>Motivo</th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
                 </table>
             </div>
         </section>
-
 </body>
 
 
