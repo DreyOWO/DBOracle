@@ -118,3 +118,218 @@ CREATE TABLE FacturasCita (
     CONSTRAINT factura_cita_fk FOREIGN KEY (Id_factura) REFERENCES Facturas(Id_factura),
     CONSTRAINT cita_factura_fk FOREIGN KEY (Id_cita) REFERENCES Citas(Id_cita)
 );
+
+
+--VISTAS
+/*
+CREATE VIEW Vista_Usuarios_Roles AS
+SELECT 
+    U.Id_usuario, 
+    U.Nombre, 
+    U.Apellido_1, 
+    U.Apellido_2, 
+    U.Correo, 
+    U.Telefono, 
+    U.Contacto_emergencia, 
+    R.Nombre AS Rol
+FROM 
+    Usuario U
+JOIN 
+    Roles R ON U.Id_usuario = R.Id_usuario;
+
+
+CREATE VIEW Vista_Ventas_Detalles AS
+SELECT 
+    V.Id_venta, 
+    V.Id_cliente, 
+    U.Nombre AS Cliente_Nombre,
+    V.Id_producto, 
+    I.Nombre AS Producto_Nombre, 
+    V.Cantidad, 
+    V.Fecha, 
+    I.Precio
+FROM 
+    Ventas V
+JOIN 
+    Usuario U ON V.Id_cliente = U.Id_usuario
+JOIN 
+    Inventario I ON V.Id_producto = I.Id_producto;
+
+
+
+CREATE VIEW Vista_Facturas_Detalles AS
+SELECT 
+    F.Id_factura, 
+    F.Id_usuario, 
+    U.Nombre AS Usuario_Nombre, 
+    F.Fecha, 
+    F.Total, 
+    D.Id_detalle, 
+    D.Descripcion, 
+    D.Cantidad, 
+    D.Precio_unitario, 
+    D.Subtotal
+FROM 
+    Facturas F
+JOIN 
+    Usuario U ON F.Id_usuario = U.Id_usuario
+JOIN 
+    DetallesFactura D ON F.Id_factura = D.Id_factura;
+
+
+
+
+CREATE VIEW Vista_Citas_Detalles AS
+SELECT 
+    C.Id_cita, 
+    C.Id_cliente, 
+    U.Nombre AS Cliente_Nombre, 
+    C.Placa, 
+    V.Tipo, 
+    V.Marca, 
+    V.Modelo, 
+    V.Año, 
+    C.Fecha, 
+    C.Motivo, 
+    C.Estado, 
+    C.Motivo_cancelacion
+FROM 
+    Citas C
+JOIN 
+    Usuario U ON C.Id_cliente = U.Id_usuario
+JOIN 
+    Vehiculos V ON C.Placa = V.Placa;
+
+
+
+CREATE VIEW Vista_Comentarios_Citas AS
+SELECT 
+    C.Id_comentario, 
+    C.Id_cita, 
+    CI.Fecha AS Cita_Fecha, 
+    CI.Motivo AS Cita_Motivo, 
+    C.Comentario, 
+    C.Fecha
+FROM 
+    ComentariosCita C
+JOIN 
+    Citas CI ON C.Id_cita = CI.Id_cita;
+    
+
+    
+
+CREATE VIEW Vista_Inventario_Productos AS
+SELECT 
+    I.Id_producto, 
+    I.Nombre, 
+    I.Descripcion, 
+    I.Cantidad, 
+    I.Precio
+FROM 
+    Inventario I;
+    
+
+
+CREATE VIEW Vista_Facturas_Ventas_Clientes AS
+SELECT 
+    F.Id_factura, 
+    F.Fecha, 
+    F.Total, 
+    U.Id_usuario AS Cliente_Id, 
+    U.Nombre AS Cliente_Nombre, 
+    V.Id_venta, 
+    I.Nombre AS Producto_Nombre, 
+    V.Cantidad AS Venta_Cantidad
+FROM 
+    Facturas F
+JOIN 
+    FacturasVenta FV ON F.Id_factura = FV.Id_factura
+JOIN 
+    Ventas V ON FV.Id_venta = V.Id_venta
+JOIN 
+    Usuario U ON F.Id_usuario = U.Id_usuario
+JOIN 
+    Inventario I ON V.Id_producto = I.Id_producto;
+    
+
+    
+CREATE VIEW Vista_Vehiculos_Clientes_Citas AS
+SELECT 
+    V.Placa, 
+    V.Tipo, 
+    V.Marca, 
+    V.Modelo, 
+    V.Año, 
+    U.Id_usuario AS Cliente_Id, 
+    U.Nombre AS Cliente_Nombre, 
+    C.Id_cita, 
+    C.Fecha AS Cita_Fecha, 
+    C.Motivo AS Cita_Motivo, 
+    C.Estado AS Cita_Estado
+FROM 
+    Vehiculos V
+JOIN 
+    Usuario U ON V.Id_cliente = U.Id_usuario
+JOIN 
+    Citas C ON V.Placa = C.Placa;
+    
+    
+    
+CREATE VIEW Vista_Detalles_Facturas_Productos AS
+SELECT 
+    DF.Id_detalle, 
+    DF.Id_factura, 
+    F.Fecha AS Factura_Fecha, 
+    DF.Descripcion, 
+    DF.Cantidad, 
+    DF.Precio_unitario, 
+    DF.Subtotal, 
+    I.Nombre AS Producto_Nombre
+FROM 
+    DetallesFactura DF
+JOIN 
+    Facturas F ON DF.Id_factura = F.Id_factura
+JOIN 
+    Inventario I ON DF.Descripcion = I.Descripcion;
+ 
+ 
+CREATE VIEW Vista_Comentarios_Citas_Clientes AS
+SELECT 
+    CC.Id_comentario, 
+    CC.Id_cita, 
+    C.Fecha AS Cita_Fecha, 
+    C.Motivo AS Cita_Motivo, 
+    CC.Comentario, 
+    CC.Fecha AS Comentario_Fecha, 
+    U.Id_usuario AS Cliente_Id, 
+    U.Nombre AS Cliente_Nombre
+FROM 
+    ComentariosCita CC
+JOIN 
+    Citas C ON CC.Id_cita = C.Id_cita
+JOIN 
+    Usuario U ON C.Id_cliente = U.Id_usuario;
+
+    
+    
+SELECT * FROM Vista_Usuarios_Roles;
+
+SELECT * FROM Vista_Ventas_Detalles;
+
+SELECT * FROM Vista_Facturas_Detalles;
+
+SELECT * FROM Vista_Citas_Detalles;
+
+SELECT * FROM Vista_Comentarios_Citas;
+
+SELECT * FROM Vista_Inventario_Productos;
+
+SELECT * FROM Vista_Facturas_Ventas_Clientes;
+
+SELECT * FROM Vista_Vehiculos_Clientes_Citas;
+
+SELECT * FROM Vista_Detalles_Facturas_Productos;
+
+SELECT * FROM Vista_Comentarios_Citas_Clientes;
+
+*/
