@@ -1,0 +1,134 @@
+set serveroutput on;
+DECLARE
+    CURSOR c_ventas IS
+        SELECT Id_venta, Id_cliente, Id_producto, Cantidad, Fecha
+        FROM Ventas;
+    v_ventas Ventas%ROWTYPE;
+BEGIN
+    OPEN c_ventas;
+    LOOP
+        FETCH c_ventas INTO v_ventas;
+        EXIT WHEN c_ventas%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('Id_venta: ' || v_ventas.Id_venta || ', Id_cliente: ' || v_ventas.Id_cliente);
+    END LOOP;
+    CLOSE c_ventas;
+END;
+/
+
+set serveroutput on;
+DECLARE
+    CURSOR c_facturas IS
+        SELECT Id_factura, Id_usuario, Fecha, Total
+        FROM Facturas;
+    v_facturas Facturas%ROWTYPE;
+BEGIN
+    OPEN c_facturas;
+    LOOP
+        FETCH c_facturas INTO v_facturas;
+        EXIT WHEN c_facturas%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('Id_factura: ' || v_facturas.Id_factura || ', Id_usuario: ' || v_facturas.Id_usuario);
+    END LOOP;
+    CLOSE c_facturas;
+END;
+/
+
+set serveroutput on;
+DECLARE
+    CURSOR c_detalles_factura IS
+        SELECT Id_detalle, Id_factura, Descripcion, Cantidad, Precio_unitario, Subtotal
+        FROM DetallesFactura;
+    v_detalles_factura DetallesFactura%ROWTYPE;
+BEGIN
+    OPEN c_detalles_factura;
+    LOOP
+        FETCH c_detalles_factura INTO v_detalles_factura;
+        EXIT WHEN c_detalles_factura%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('Id_detalle: ' || v_detalles_factura.Id_detalle || ', Id_factura: ' || v_detalles_factura.Id_factura);
+    END LOOP;
+    CLOSE c_detalles_factura;
+END;
+/
+
+set serveroutput on;
+DECLARE
+    CURSOR c_facturas_venta IS
+        SELECT Id_facturas_ventas, Id_factura, Id_venta
+        FROM FacturasVenta;
+    v_facturas_venta FacturasVenta%ROWTYPE;
+BEGIN
+    OPEN c_facturas_venta;
+    LOOP
+        FETCH c_facturas_venta INTO v_facturas_venta;
+        EXIT WHEN c_facturas_venta%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('Id_facturas_ventas: ' || v_facturas_venta.Id_facturas_ventas || ', Id_factura: ' || v_facturas_venta.Id_factura);
+    END LOOP;
+    CLOSE c_facturas_venta;
+END;
+/
+
+set serveroutput on;
+DECLARE
+    CURSOR c_vehiculos IS
+        SELECT Placa, Id_cliente, Tipo, Marca, Modelo, Año
+        FROM Vehiculos;
+    v_vehiculos Vehiculos%ROWTYPE;
+BEGIN
+    OPEN c_vehiculos;
+    LOOP
+        FETCH c_vehiculos INTO v_vehiculos;
+        EXIT WHEN c_vehiculos%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('Placa: ' || v_vehiculos.Placa || ', Id_cliente: ' || v_vehiculos.Id_cliente);
+    END LOOP;
+    CLOSE c_vehiculos;
+END;
+/
+
+set serveroutput on;
+DECLARE
+    CURSOR c_citas IS
+        SELECT Id_cita, Id_cliente, Placa, Fecha, Motivo, Estado, Motivo_cancelacion
+        FROM Citas;
+    v_citas Citas%ROWTYPE;
+BEGIN
+    OPEN c_citas;
+    LOOP
+        FETCH c_citas INTO v_citas;
+        EXIT WHEN c_citas%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('Id_cita: ' || v_citas.Id_cita || ', Id_cliente: ' || v_citas.Id_cliente);
+    END LOOP;
+    CLOSE c_citas;
+END;
+/
+
+set serveroutput on;
+DECLARE
+    CURSOR c_comentarios_cita IS
+        SELECT Id_comentario, Id_cita, Comentario, Fecha
+        FROM ComentariosCita;
+    v_comentarios_cita ComentariosCita%ROWTYPE;
+BEGIN
+    OPEN c_comentarios_cita;
+    LOOP
+        FETCH c_comentarios_cita INTO v_comentarios_cita;
+        EXIT WHEN c_comentarios_cita%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('Id_comentario: ' || v_comentarios_cita.Id_comentario || ', Id_cita: ' || v_comentarios_cita.Id_cita);
+    END LOOP;
+    CLOSE c_comentarios_cita;
+END;
+/
+
+set serveroutput on;
+DECLARE
+    CURSOR c_facturas_cita IS
+        SELECT Id_facturas_cita, Id_factura, Id_cita
+        FROM FacturasCita;
+    v_facturas_cita FacturasCita%ROWTYPE;
+BEGIN
+    OPEN c_facturas_cita;
+    LOOP
+        FETCH c_facturas_cita INTO v_facturas_cita;
+        EXIT WHEN c_facturas_cita%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('Id_facturas_cita: ' || v_facturas_cita.Id_facturas_cita || ', Id_factura: ' || v_facturas_cita.Id_factura);
+    END LOOP;
+    CLOSE c_facturas_cita;
+END;
