@@ -2,11 +2,14 @@
 
 session_start();
 
+// Verifica si hay un ID de cliente en la sesión
+if (!isset($_SESSION['ID_CLIENTE'])) {
+    echo json_encode([]);
+    exit();
+}
 
 // Incluir la conexión a la base de datos
 include_once('D:/XAMPP/htdocs/DBProyecto/config/conne.php');
-include_once('./Model/ModelVehiculo.php');
-
 
 $vehiculos = [];
 
@@ -73,16 +76,11 @@ if (isset($_POST['btnEliminarVehiculo'])) {
     oci_close($conn);
 }
 
-if (isset($_SESSION['ID_CLIENTE'])) {
-    $id_cliente = $_SESSION['ID_CLIENTE'];
-
+if (isset($_POST['btnCargarVehiculos'])) {
     // Preparar la llamada al procedimiento almacenado
-    $stid = oci_parse($conn, 'BEGIN ObtenerVehiculosPorCliente(:p_Id_cliente, :p_ResultSet); END;');
+    $stid = oci_parse($conn, 'BEGIN ObtenerTodosLosVehiculos(:p_ResultSet); END;');
 
-    // Enlazar el parámetro de entrada
-    oci_bind_by_name($stid, ':p_Id_cliente', $id_cliente);
-
-    // Enlazar el cursor de salida
+    // Crear un nuevo cursor
     $cursor = oci_new_cursor($conn);
     oci_bind_by_name($stid, ':p_ResultSet', $cursor, -1, OCI_B_CURSOR);
 
@@ -92,7 +90,7 @@ if (isset($_SESSION['ID_CLIENTE'])) {
     // Ejecutar el cursor
     oci_execute($cursor);
 
-    // Crear un array para almacenar los vehículos
+    // Crear un array para almacenar los artículos
     $vehiculos = [];
 
     // Obtener los resultados
@@ -104,7 +102,4 @@ if (isset($_SESSION['ID_CLIENTE'])) {
     oci_free_statement($stid);
     oci_free_statement($cursor);
     oci_close($conn);
-} else {
-    header('Location: login.php');
-    exit();
 }

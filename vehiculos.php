@@ -1,3 +1,10 @@
+<?php
+
+include_once('D:/XAMPP/htdocs/DBProyecto/config/conne.php');
+include_once('./Model/ModelVehiculo.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,39 +27,47 @@
         <!-- Formulario y contenido para la gestión de vehículos -->
         <!-- Aquí iría el contenido del formulario y la gestión de vehículos -->
     </div>
+
     <h2 class="mt-5">Lista de Vehículos</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Placa</th>
-            <th>Tipo</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Año</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php if (!empty($vehiculos)): ?>
-            <?php foreach ($vehiculos as $vehiculo): ?>
+<!-- Formulario para cargar los vehículos -->
+<form method="POST" action="vehiculos.php">
+            <button type="submit" name="btnCargarVehiculos" class="btn btn-primary">Cargar Vehículos</button>
+        </form>
+
+        <table class="table mt-3">
+            <thead>
                 <tr>
-                    <td><?php echo htmlspecialchars($vehiculo['PLACA']); ?></td>
-                    <td><?php echo htmlspecialchars($vehiculo['TIPO']); ?></td>
-                    <td><?php echo htmlspecialchars($vehiculo['MARCA']); ?></td>
-                    <td><?php echo htmlspecialchars($vehiculo['MODELO']); ?></td>
-                    <td><?php echo htmlspecialchars($vehiculo['AÑO']); ?></td>
+                    <th>Placa</th>
+                    <th>Tipo</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Año</th>
                 </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="5">No se encontraron vehículos.</td>
-            </tr>
-        <?php endif; ?>
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+                <?php if (!empty($vehiculos)): ?>
+                    <?php foreach ($vehiculos as $vehiculo): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($vehiculo['PLACA']); ?></td>
+                            <td><?php echo htmlspecialchars($vehiculo['ID_CLIENTE']) ?></td>
+                            <td><?php echo htmlspecialchars($vehiculo['TIPO']); ?></td>
+                            <td><?php echo htmlspecialchars($vehiculo['MARCA']); ?></td>
+                            <td><?php echo htmlspecialchars($vehiculo['MODELO']); ?></td>
+                            <td><?php echo htmlspecialchars($vehiculo['AÑO']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="5">No se encontraron vehículos.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+
     <h2 class="mt-5">Registrar Nuevo Vehículo</h2>
     <form action="Model/ModelVehiculo.php" method="post">
         <!-- Campo oculto para enviar el ID del cliente -->
-        <input type="hidden" id="id_cliente" name="id_cliente" value="<?php echo $_SESSION['user_id']; ?>">
+        <input type="hidden" id="id_cliente" name="id_cliente" value="<?php echo $_SESSION['ID_CLIENTE']; ?>">
 
         <div class="form-group">
             <label for="placa">Placa</label>
