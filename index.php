@@ -41,6 +41,7 @@
         <a href="citas.php">Citas</a>
         <a href="vehiculos.php">Vehículos</a>
         <a href="Inventario.php">Productos</a>
+        <a href="login.php">Cerrar sesion</a>
     </div>
     <div class="content">
         <h1>Bienvenido</h1>

@@ -3,6 +3,10 @@ session_start();
 include_once('D:/XAMPP/htdocs/DBProyecto/config/conne.php');
 include_once('./Model/ModelProductos.php');
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Crear una instancia del modelo de productos
 $modeloProductos = new ModelProductos($conn);
 
@@ -54,17 +58,20 @@ oci_close($conn);
                 <?php endif; ?>
             </tbody>
         </table>
-        <div class="input-group">
-            <label for="ID" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Correo</label>
-            <input name="correo" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" id="correo">
-        </div>
-        <div class="input-group mt-3">
-            <label for="contrasena" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Contraseña</label>
-            <input name="contrasena" type="password" class="form-control validate" id="contrasena">
-        </div>
-        <div class="input-group mt-3">
-            <button name="btningresar" type="submit" class="btn btn-primary d-inline-block mx-auto">Iniciar Sesión</button>
-        </div>
+        <form action="./controllers/controllerVentas.php" method="post">
+            <div class="input-group">
+                <label for="ID_Producto" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">ID del Producto</label>
+                <input name="ID_Producto" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" id="ID_Producto" required>
+            </div>
+            <div class="input-group mt-3">
+                <label for="Cantidad" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Cantidad de objetos</label>
+                <input name="Cantidad" type="text" class="form-control validate" id="Cantidad" required>
+            </div>
+            <div class="input-group mt-3">
+                <button name="btnFactura" type="submit" class="btn btn-primary d-inline-block mx-auto">Facturar</button>
+            </div>
+        </form>
+
     </div>
 </body>
 

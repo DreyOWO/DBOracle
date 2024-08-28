@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+include_once('D:/XAMPP/htdocs/DBProyecto/config/conne.php');
 
 // Verifica si hay un ID de cliente en la sesión
 if (!isset($_SESSION['ID_CLIENTE'])) {
