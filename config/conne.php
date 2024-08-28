@@ -16,13 +16,6 @@ $connection_string = "(DESCRIPTION =
 $conn = oci_connect($username, $password, $connection_string);
 
 // Verificar si la conexión fue exitosa
-if (!$conn) {
-    $e = oci_error();
-    echo "Error al conectar a la base de datos: " . $e['message'];
-    exit;
-} else {
-    echo "Conexión exitosa a la base de datos Oracle!";
-}
 
 // Aquí puedes ejecutar consultas a la base de datos
 ?>

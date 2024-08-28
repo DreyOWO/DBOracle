@@ -9,86 +9,118 @@ include("./controllers/controllerLogin.php");
 
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login Page - Dashboard Admin Template</title>
-    <!--
-    Template 2108 Dashboard
-    http://www.tooplate.com/view/2108-dashboard
-    -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
-    <!-- https://fonts.google.com/specimen/Open+Sans -->
-    <link rel="stylesheet" href="css/fontawesome.min.css">
-    <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" href="css/tooplate.css">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
     <style>
-        .btn-yellow {
-            background-color: #f7c11f;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            text-decoration: none;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
- 
-        .btn-yellow:hover {
-            background-color: #e6b800;
-            color: #fff;
+
+        .logo {
+            max-width: 150px;
+            margin-bottom: 2rem;
         }
- 
-        .btn-container {
+
+        .login-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.625rem;
+            box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.1);
+            max-width: 90vw;
+            width: 22rem; 
+        }
+
+        .login-container h2 {
+            font-size: 1.75rem;
+            font-family: 'Pacifico', cursive;
+            color: #007bff;
             text-align: center;
-            margin-top: 20px;
+            margin-bottom: 1.25rem;
+            text-shadow: 0.063rem 0.063rem 0.313rem rgba(0, 0, 0, 0.1); 
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 0.313rem; 
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+            border: 0.063rem solid #ddd;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 0.625rem; 
+            width: 100%;
+            font-size: 1rem;
+            border-radius: 0.313rem; 
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1rem; 
+        }
+
+        .register-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
- 
-<body class="bg03">
-    <div class="container">
-        <div class="row tm-mt-big">
-            <div class="col-12 mx-auto tm-login-col">
-                <div class="bg-white tm-block">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <i class="fas fa-3x fa-tachometer-alt tm-site-icon text-center"></i>
-                            <h2 class="tm-block-title mt-3">Iniciar Sesión</h2>
-                            <?php
-                            if (isset($_GET['mensaje']) && $_GET['mensaje'] == 'success') {
-                                echo '<div class="alert alert-success" role="alert">¡Registro exitoso! Ahora puedes iniciar sesión.</div>';
-                            }
-                            ?>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <form action="" method="post" class="tm-login-form">
-                                <div class="input-group">
-                                    <label for="correo" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Correo</label>
-                                    <input name="correo" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" id="correo">
-                                </div>
-                                <div class="input-group mt-3">
-                                    <label for="contrasena" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Contraseña</label>
-                                    <input name="contrasena" type="password" class="form-control validate" id="contrasena">
-                                </div>
-                                <div class="input-group mt-3">
-                                    <button name="btningresar" type="submit" class="btn btn-primary d-inline-block mx-auto">Iniciar Sesión</button>
-                                </div>
-                                <div class="text-center mt-3">
-                                    <p class="mb-0">¿No tienes cuenta? <a href="nuevousuario.php">Regístrate aquí</a></p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+
+<body>
+    <img src="images/logo.png" alt="Logo" class="logo">
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+        <?php
+        if (isset($_GET['mensaje']) && $_GET['mensaje'] == 'success') {
+            echo '<div class="alert alert-success" role="alert">¡Registro exitoso! Ahora puedes iniciar sesión.</div>';
+        }
+        ?>
+        <form action="" method="post">
+            <div class="form-group">
+                <label for="correo">Correo</label>
+                <input name="correo" type="text" class="form-control" id="correo" required>
             </div>
-        </div>
+            <div class="form-group">
+                <label for="contrasena">Contraseña</label>
+                <input name="contrasena" type="password" class="form-control" id="contrasena" required>
+            </div>
+            <button name="btningresar" type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            <div class="register-link">
+                <a href="nuevousuario.php">Regístrate aquí</a>
+            </div>
+        </form>
     </div>
 </body>
- 
+
 </html>
+ 

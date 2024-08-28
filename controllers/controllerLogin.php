@@ -11,32 +11,44 @@ if (isset($_POST['btningresar'])) {
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
 
-    // Preparar la consulta para verificar las credenciales
-    $stid = oci_parse($conn, "SELECT ID_USUARIO FROM Usuario WHERE CORREO = :p_Correo AND CONTRASENA = :p_Contrasena");
-    
+    // Preparar la consulta para verificar las credenciales y obtener el rol
+    $stid = oci_parse($conn, "
+        SELECT ID_USUARIO, ID_ROL 
+        FROM Usuario 
+        WHERE CORREO = :p_Correo 
+        AND CONTRASENA = :p_Contrasena");
+
     // Enlazar los parámetros
     oci_bind_by_name($stid, ':p_Correo', $correo);
     oci_bind_by_name($stid, ':p_Contrasena', $contrasena);
-    
+
     // Ejecutar la consulta
     oci_execute($stid);
     
     // Verificar si se encontró un usuario
     $user = oci_fetch_assoc($stid);
-    
+
     if ($user) {
         // Almacenar el ID del usuario en la sesión
         $_SESSION['ID_CLIENTE'] = $user['ID_USUARIO']; // Asegúrate de almacenar el ID en la variable de sesión correcta
         
-        // Redirigir al usuario a la página principal o dashboard
-        header('Location: index.php');
+        // Verificar el rol del usuario y redirigirlo en consecuencia
+        if ($user['ID_ROL'] == 'Cliente') { // Suponiendo que 1 es Cliente
+            header('Location: index.php');
+        } elseif ($user['ID_ROL'] == 'Administrador') { // Suponiendo que 2 es Administrador
+            header('Location: Admin.php');
+        } else {
+            // Redirigir con un mensaje de error si el rol no es válido
+            header('Location: login.php?mensaje=error');
+        }
     } else {
-        // Redirigir con un mensaje de error
+        // Redirigir con un mensaje de error si las credenciales son incorrectas
         header('Location: login.php?mensaje=error');
     }
-    
+
     // Liberar recursos y cerrar conexión
     oci_free_statement($stid);
     oci_close($conn);
 }
+
 ?>

@@ -25,14 +25,7 @@ if (isset($_POST['btnregistrar'])) {
     oci_bind_by_name($stid, ':p_Contrasena', $contrasena);
     oci_bind_by_name($stid, ':p_Contacto_emergencia', $contacto_emergencia);
 
-    // Ejecutar el procedimiento
-    if (oci_execute($stid)) {
-        // Redirigir con un mensaje de éxito
-        header('Location: nuevousuario.php?mensaje=success');
-    } else {
-        $e = oci_error($stid);
-        echo "Error al ejecutar el procedimiento: " . $e['message'];
-    }
+
 
     // Liberar recursos y cerrar conexión
     oci_free_statement($stid);

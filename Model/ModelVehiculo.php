@@ -20,7 +20,7 @@ if (isset($_POST['btnAgregarVehiculo'])) {
     $tipo = $_POST['tipo'];
     $marca = $_POST['marca'];
     $modelo = $_POST['modelo'];
-    $año = (int)$_POST['año'];  // Asegurarse de que sea un número
+    $ano = (int)$_POST['ano'];  // Asegurarse de que sea un número
 
     // Obtener el ID_CLIENTE desde la sesión
     $id_cliente = $_SESSION['ID_CLIENTE'];
@@ -34,7 +34,7 @@ if (isset($_POST['btnAgregarVehiculo'])) {
     oci_bind_by_name($stid, ':p_Tipo', $tipo);
     oci_bind_by_name($stid, ':p_Marca', $marca);
     oci_bind_by_name($stid, ':p_Modelo', $modelo);
-    oci_bind_by_name($stid, ':p_Ano', $año);  // Usar `Ano` en lugar de `Año` debido a que los caracteres especiales pueden causar problemas
+    oci_bind_by_name($stid, ':p_Ano', $ano);  // Usar `Ano` en lugar de `Año` debido a que los caracteres especiales pueden causar problemas
 
     // Ejecutar el procedimiento
     if (oci_execute($stid)) {
