@@ -277,6 +277,7 @@
         <a href="citasAdmin.php">Citas</a>
         <a href="vehiculosAdmin.php">Vehículos</a>
         <a href="InventarioAdmin.php">Productos</a>
+        <a href="nuevousuarioAdmin.php">Crear un nuevo Administrador</a>
         <a href="login.php">Login</a>
     </div>
 </body>

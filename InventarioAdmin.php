@@ -124,22 +124,51 @@ oci_close($conn);
             flex: 1;
         }
 
-        .subtitle {
-            margin: 20px 0;
-            text-align: center;
+        .card {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .subtitle-box {
-            display: inline-block;
-            padding: 10px 20px;
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+            border-radius: 10px 10px 0 0;
+            padding: 15px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
             border-radius: 5px;
-            font-size: 16px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
         }
 
-        .content .table {
-            margin-top: 20px;
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
         }
 
         .close-btn {
@@ -167,65 +196,75 @@ oci_close($conn);
         <h1>Taller Enderezado y Pintura Burgos</h1>
         <img src="images/logo.png" alt="Logo" class="logo">
     </div>
+
     <div class="content">
-        <div class="subtitle">
-            <div class="subtitle-box">
-                <h1>Agregar Producto</h1>
+        <div class="card">
+            <div class="card-header">
+                Agregar Producto
+            </div>
+            <div class="card-body">
+                <form action="./controllers/controllerVentas.php" method="post">
+                    <div class="form-group">
+                        <label for="ID_PRODUCTO">ID Producto:</label>
+                        <input type="number" id="ID_PRODUCTO" name="ID_PRODUCTO" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="NOMBRE">Nombre:</label>
+                        <input type="text" id="NOMBRE" name="NOMBRE" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="DESCRIPCION">Descripción:</label>
+                        <input type="text" id="DESCRIPCION" name="DESCRIPCION">
+                    </div>
+                    <div class="form-group">
+                        <label for="CANTIDAD">Cantidad:</label>
+                        <input type="number" id="CANTIDAD" name="CANTIDAD" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PRECIO">Precio:</label>
+                        <input type="number" step="0.01" id="PRECIO" name="PRECIO" required>
+                    </div>
+                    <button type="submit" name="btnAgregarProducto" class="btn btn-primary">Agregar Producto</button>
+                </form>
             </div>
         </div>
-        <form action="./controllers/controllerVentas.php" method="post">
-            <div class="form-group">
-                <label for="ID_PRODUCTO">ID Producto:</label>
-                <input type="number" id="ID_PRODUCTO" name="ID_PRODUCTO" required>
-            </div>
-            <div class="form-group">
-                <label for="NOMBRE">Nombre:</label>
-                <input type="text" id="NOMBRE" name="NOMBRE" required>
-            </div>
-            <div class="form-group">
-                <label for="DESCRIPCION">Descripción:</label>
-                <input type="text" id="DESCRIPCION" name="DESCRIPCION">
-            </div>
-            <div class="form-group">
-                <label for="CANTIDAD">Cantidad:</label>
-                <input type="number" id="CANTIDAD" name="CANTIDAD" required>
-            </div>
-            <div class="form-group">
-                <label for="PRECIO">Precio:</label>
-                <input type="number" step="0.01" id="PRECIO" name="PRECIO" required>
-            </div>
-            <button type="submit" name="btnAgregarProducto" class="btn btn-primary">Agregar Producto</button>
-        </form>
 
-        <body>
-            <h1>Eliminar Producto</h1>
-            <form action="controllers/controllerVentas.php" method="post">
-                <label for="id_producto">ID del Producto:</label>
-                <input type="number" id="id_producto" name="id_producto" required>
-                <input type="hidden" name="action" value="eliminar_producto">
-                <button type="submit" name="btnEliminarProducto" class="btn btn-primary">Agregar Producto</button>
-            </form>
-        </body>
-        <h1>Agregar Producto al Stock</h1>
-        <form action="controllers/controllerVentas.php" method="post">
-            <label for="id_producto">ID del Producto:</label>
-            <input type="number" id="id_producto" name="id_producto" required>
-            <label for="cantidad">Cantidad:</label>
-            <input type="number" id="cantidad" name="cantidad" required>
-            <input type="hidden" name="action" value="agregar_stock">
-            <button type="submit" name="btnAgregarStock" class="btn btn-primary">Agregar al Stock</button>
-        </form>
-    </div>
-    </div>
-    <div class="sidebar">
-        <span class="close-btn" onclick="toggleSidebar()">&times;</span>
-        <h2>Menú</h2>
-        <a href="Admin.php">Inicio</a>
-        <a href="citasAdmin.php">Citas</a>
-        <a href="vehiculosAdmin.php">Vehículos</a>
-        <a href="login.php">Cerrar</a>
-    </div>
-    <div class="content">
+        <div class="card">
+            <div class="card-header">
+                Eliminar Producto
+            </div>
+            <div class="card-body">
+                <form action="controllers/controllerVentas.php" method="post">
+                    <div class="form-group">
+                        <label for="id_producto_eliminar">ID del Producto:</label>
+                        <input type="number" id="id_producto_eliminar" name="id_producto" required>
+                    </div>
+                    <input type="hidden" name="action" value="eliminar_producto">
+                    <button type="submit" name="btnEliminarProducto" class="btn btn-primary">Eliminar Producto</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                Agregar Producto al Stock
+            </div>
+            <div class="card-body">
+                <form action="controllers/controllerVentas.php" method="post">
+                    <div class="form-group">
+                        <label for="id_producto_stock">ID del Producto:</label>
+                        <input type="number" id="id_producto_stock" name="id_producto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cantidad_stock">Cantidad:</label>
+                        <input type="number" id="cantidad_stock" name="cantidad" required>
+                    </div>
+                    <input type="hidden" name="action" value="agregar_stock">
+                    <button type="submit" name="btnAgregarStock" class="btn btn-primary">Agregar al Stock</button>
+                </form>
+            </div>
+        </div>
+
         <div class="subtitle">
             <div class="subtitle-box">
                 <h1>Lista de Productos</h1>
@@ -254,12 +293,22 @@ oci_close($conn);
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5">No se encontraron productos.</td>
+                        <td colspan="5">No hay productos disponibles.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
         </table>
     </div>
+
+    <div class="sidebar">
+        <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+        <h2>Menú</h2>
+        <a href="Admin.php">Inicio</a>
+        <a href="citasAdmin.php">Citas</a>
+        <a href="vehiculosAdmin.php">Vehículos</a>
+        <a href="login.php">Cerrar Sesion</a>
+    </div>
+
     <div class="footer">
         <p>© 2024 Derechos reservados Grupo#7</p>
     </div>

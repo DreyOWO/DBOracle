@@ -179,6 +179,19 @@ $citas = $citasModel->obtenerCitas();
             bottom: 0;
         }
 
+        .form-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .form-wrapper form {
+            width: 100%;
+            max-width: 500px;
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 24px;
@@ -217,13 +230,15 @@ $citas = $citasModel->obtenerCitas();
         <a href="Admin.php">Inicio</a>
         <a href="vehiculosAdmin.php">Vehículos</a>
         <a href="InventarioAdmin.php">Productos</a>
-        <a href="login.php">Login</a>
+        <a href="login.php">Cerrar Sesion</a>
     </div>
+
     <div class="subtitle">
         <div class="subtitle-box">
             <h1>Administración de Citas</h1>
         </div>
     </div>
+
     <div class="container">
         <h2 class="mt-5">Lista de Citas Programadas</h2>
         <table class="table table-striped">
@@ -245,61 +260,64 @@ $citas = $citasModel->obtenerCitas();
                         <td><?php echo htmlspecialchars($cita['MOTIVO']); ?></td>
                         <td><?php echo htmlspecialchars($cita['ESTADO']); ?></td>
                     </tr>
-        </div>
-    <?php endforeach; ?>
-    </tbody>
-    </table>
-    </div>
-    <h2 class="mt-5">Agregar un Comentario</h2>
-    <form action="Model/ModelCita.php" method="post">
-        <div class="form-group">
-            <label for="id_cita">ID Cita</label>
-            <input type="text" class="form-control" id="id_cita" name="id_cita" required>
-            <label for="comentario">Comentario</label>
-            <input type="text" class="form-control" id="comentario" name="comentario" required>
-        </div>
-        <button type="submit" name="btnAgregarComnt" class="btn btn-danger">Agregar Comentario</button>
-    </form>
-    <h2 class="mt-5">Programar Nueva Cita</h2>
-    <form action="Model/ModelCita.php" method="post">
-        <input type="hidden" name="id_cliente" value="<?php echo $_SESSION['ID_CLIENTE']; ?>">
-        <div class="form-group">
-            <label for="placa">Placa del Vehículo</label>
-            <input type="text" class="form-control" id="placa" name="placa" required>
-        </div>
-        <div class="form-group">
-            <label for="fecha">Fecha</label>
-            <input type="date" class="form-control" id="fecha" name="fecha" required>
-        </div>
-        <div class="form-group">
-            <label for="motivo">Motivo</label>
-            <input type="text" class="form-control" id="motivo" name="motivo" required>
-        </div>
-        <button type="submit" name="btnAgregarCita" class="btn btn-primary">Programar Cita</button>
-    </form>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
 
-    <h2 class="mt-5">Cancelar Cita</h2>
-    <form action="Model/ModelCita.php" method="post">
-        <div class="form-group">
-            <label for="id_cita">ID Cita</label>
-            <input type="text" class="form-control" id="id_cita" name="id_cita" required>
-        </div>
-        <button type="submit" name="btnCancelarCita" class="btn btn-danger">Cancelar Cita</button>
-    </form>
-    </div>
+        <div class="form-wrapper">
+            <form action="Model/ModelCita.php" method="post">
+                <h2>Agregar un Comentario</h2>
+                <div class="form-group">
+                    <label for="id_cita">ID Cita</label>
+                    <input type="text" class="form-control" id="id_cita" name="id_cita" required>
+                    <label for="comentario">Comentario</label>
+                    <input type="text" class="form-control" id="comentario" name="comentario" required>
+                </div>
+                <button type="submit" name="btnAgregarComnt" class="btn btn-danger">Agregar Comentario</button>
+            </form>
 
-    <h2 class="mt-5">Eliminar una Cita</h2>
-    <form action="Model/ModelCita.php" method="post">
-        <div class="form-group">
-            <label for="id_cita">ID Cita</label>
-            <input type="text" class="form-control" id="id_cita" name="id_cita" required>
+            <form action="Model/ModelCita.php" method="post">
+                <h2>Programar Nueva Cita</h2>
+                <input type="hidden" name="id_cliente" value="<?php echo $_SESSION['ID_CLIENTE']; ?>">
+                <div class="form-group">
+                    <label for="placa">Placa del Vehículo</label>
+                    <input type="text" class="form-control" id="placa" name="placa" required>
+                </div>
+                <div class="form-group">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" class="form-control" id="fecha" name="fecha" required>
+                </div>
+                <div class="form-group">
+                    <label for="motivo">Motivo</label>
+                    <input type="text" class="form-control" id="motivo" name="motivo" required>
+                </div>
+                <button type="submit" name="btnProgramar" class="btn btn-primary">Programar Cita</button>
+            </form>
+
+            <form action="Model/ModelCita.php" method="post">
+                <h2>Cancelar Cita</h2>
+                <div class="form-group">
+                    <label for="id_cita_cancelar">ID Cita</label>
+                    <input type="text" class="form-control" id="id_cita_cancelar" name="id_cita_cancelar" required>
+                </div>
+                <button type="submit" name="btnCancelar" class="btn btn-danger">Cancelar Cita</button>
+            </form>
+
+            <form action="Model/ModelCita.php" method="post">
+                <h2>Eliminar una Cita</h2>
+                <div class="form-group">
+                    <label for="id_cita_eliminar">ID Cita</label>
+                    <input type="text" class="form-control" id="id_cita_eliminar" name="id_cita_eliminar" required>
+                </div>
+                <button type="submit" name="btnEliminar" class="btn btn-danger">Eliminar Cita</button>
+            </form>
         </div>
-        <button type="submit" name="btnEliminarCita" class="btn btn-danger">Eliminar Cita</button>
-    </form>
+    </div>
 
     <div class="footer">
-        <p>Taller de Enderezado y Pintura Burgos - Todos los derechos reservados © 2024</p>
+        <p>&copy; 2024 Derechos reservados Grupo#7</p>
     </div>
 </body>
 
 </html>
+ 
