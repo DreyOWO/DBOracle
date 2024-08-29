@@ -162,7 +162,7 @@ include('./Model/ModelUsuario.php');
             </div>
             <!-- Campo oculto para enviar ID_ROL automáticamente -->
             <input type="hidden" name="id_rol" value="Administrador">
-            <button name="btnregistrar" href="login.php" type="submit" class="btn btn-primary">Registrar</button>
+            <button name="btnregistrar" href="Admin.php" type="submit" class="btn btn-primary">Registrar</button>
         </form>
     </div>
 </body>

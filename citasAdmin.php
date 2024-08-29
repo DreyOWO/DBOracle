@@ -230,6 +230,7 @@ $citas = $citasModel->obtenerCitas();
         <a href="Admin.php">Inicio</a>
         <a href="vehiculosAdmin.php">Vehículos</a>
         <a href="InventarioAdmin.php">Productos</a>
+        <a href="facturasAdmin.php">Facturas</a>
         <a href="login.php">Cerrar Sesion</a>
     </div>
 

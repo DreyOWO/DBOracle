@@ -265,6 +265,11 @@
             <h3>Productos</h3>
             <button onclick="window.location.href='InventarioAdmin.php'">Ir a Productos</button>
         </div>
+        <div class="menu-item">
+            <img src="images/facturas.jpeg" alt="Facturas">
+            <h3>Facturas</h3>
+            <button onclick="window.location.href='facturasAdmin.php'">Ir a Facturas</button>
+        </div>
     </div>
 
     <div class="footer">
@@ -277,8 +282,9 @@
         <a href="citasAdmin.php">Citas</a>
         <a href="vehiculosAdmin.php">Vehículos</a>
         <a href="InventarioAdmin.php">Productos</a>
+        <a href="facturasAdmin.php">Facturas</a>
         <a href="nuevousuarioAdmin.php">Crear un nuevo Administrador</a>
-        <a href="login.php">Login</a>
+        <a href="login.php">Cerrar Sesion</a>
     </div>
 </body>
 
