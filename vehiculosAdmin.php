@@ -185,7 +185,7 @@ include_once('./Model/ModelVehiculo.php');
     <div class="sidebar">
         <span class="close-btn" onclick="toggleSidebar()">&times;</span>
         <h2>Menú</h2>
-        <a href="index.php">Inicio</a>
+        <a href="Admin.php">Inicio</a>
         <a href="citas.php">Citas</a>
         <a href="inventario.php">Productos</a>
         <a href="login.php">Login</a>
@@ -199,6 +199,45 @@ include_once('./Model/ModelVehiculo.php');
         </div>
 
         <div class="container">
+            <h2>Lista de Vehículos</h2>
+            <div class="btn-container">
+                <form method="POST" action="vehiculosAdmin.php" style="display: inline;">
+                    <button type="submit" name="btnCargarVehiculos" class="btn btn-primary">Cargar Vehículos</button>
+                </form>
+                <form method="POST" action="vehiculosAdmin.php" style="display: inline;">
+                    <button type="submit" name="btnGuardarVehiculos" class="btn btn-secondary">Guardar Vehículos</button>
+                </form>
+            </div>
+
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th>Placa</th>
+                        <th>Tipo</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Año</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($vehiculos)): ?>
+                        <?php foreach ($vehiculos as $vehiculo): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($vehiculo['PLACA']); ?></td>
+                                <td><?php echo htmlspecialchars($vehiculo['TIPO']); ?></td>
+                                <td><?php echo htmlspecialchars($vehiculo['MARCA']); ?></td>
+                                <td><?php echo htmlspecialchars($vehiculo['MODELO']); ?></td>
+                                <td><?php echo htmlspecialchars($vehiculo['AÑO']); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5">No se encontraron vehículos.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+
             <h2 class="mt-5">Registrar Nuevo Vehículo</h2>
             <form action="Model/ModelVehiculo.php" method="post">
                 <input type="hidden" id="id_cliente" name="id_cliente" value="<?php echo $_SESSION['ID_CLIENTE']; ?>">
@@ -225,6 +264,17 @@ include_once('./Model/ModelVehiculo.php');
                 </div>
                 <button type="submit" name="btnAgregarVehiculo" class="btn btn-primary">Registrar Vehículo</button>
             </form>
+
+            <h2 class="mt-5">Eliminar Vehículo</h2>
+            <div class="form-container">
+                <form action="Model/ModelVehiculo.php" method="post">
+                    <div class="form-group">
+                        <label for="placa">Placa del Vehículo</label>
+                        <input type="text" class="form-control" id="placa" name="placa" required>
+                    </div>
+                    <button type="submit" name="btnEliminarVehiculo" class="btn btn-danger">Eliminar Vehículo</button>
+                </form>
+            </div>
         </div>
     </div>
 

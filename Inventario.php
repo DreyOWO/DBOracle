@@ -191,7 +191,7 @@ oci_close($conn);
         <a href="index.php">Inicio</a>
         <a href="citas.php">Citas</a>
         <a href="vehiculos.php">Vehículos</a>
-        <a href="login.php">Cerrar sesion</a>
+        <a href="login.php">Cerrar</a>
     </div>
     <div class="content">
         <div class="subtitle">

@@ -1,9 +1,20 @@
 <?php
-
+session_start();
 include_once('D:/XAMPP/htdocs/DBProyecto/config/conne.php');
-include_once('./Model/ModelVehiculo.php');
+include_once('./Model/ModelProductos.php');
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
+// Crear una instancia del modelo de productos
+$modeloProductos = new ModelProductos($conn);
+
+// Obtener los artículos
+$articulos = $modeloProductos->obtenerArticulos();
+
+// Liberar la conexión
+oci_close($conn);
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +23,7 @@ include_once('./Model/ModelVehiculo.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Vehículos</title>
+    <title>Lista de Productos</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
@@ -53,32 +64,6 @@ include_once('./Model/ModelVehiculo.php');
             opacity: 0.9;
         }
 
-        .subtitle {
-            margin: 15px;
-            text-align: center;
-        }
-
-        .subtitle-box {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-        }
-
-        .container {
-            padding: 10px 20px;
-            flex: 1;
-            text-align: center;
-        }
-
-        .container h2 {
-            margin-top: 20px;
-            font-size: 28px;
-            color: #007bff;
-        }
-
         .menu-icon {
             font-size: 24px;
             cursor: pointer;
@@ -99,7 +84,7 @@ include_once('./Model/ModelVehiculo.php');
         .sidebar {
             position: fixed;
             top: 0;
-            left: -300px;
+            left: -250px;
             width: 250px;
             height: 100%;
             background-color: #ffffff;
@@ -135,25 +120,26 @@ include_once('./Model/ModelVehiculo.php');
         }
 
         .content {
-            margin-left: 20px;
-            margin-right: 20px;
-            padding: 20px;
+            margin: 20px;
             flex: 1;
-            overflow: hidden;
         }
 
-        .content h1 {
-            font-size: 24px;
+        .subtitle {
+            margin: 20px 0;
             text-align: center;
-            margin-bottom: 20px;
         }
 
-        .btn-container {
+        .subtitle-box {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        .content .table {
             margin-top: 20px;
-        }
-
-        .form-container {
-            margin-bottom: 50px;
         }
 
         .close-btn {
@@ -181,57 +167,70 @@ include_once('./Model/ModelVehiculo.php');
         <h1>Taller Enderezado y Pintura Burgos</h1>
         <img src="images/logo.png" alt="Logo" class="logo">
     </div>
-
+    <div class="subtitle">
+            <div class="subtitle-box">
+                <h1>Venta</h1>
+            </div>
+        </div>
+    <form action="./controllers/controllerVentas.php" method="post">
+        <div class="input-group">
+            <label for="ID_Producto" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">ID del Producto</label>
+            <input name="ID_Producto" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" id="ID_Producto" required>
+        </div>
+        <div class="input-group mt-3">
+            <label for="Cantidad" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Cantidad de objetos</label>
+            <input name="Cantidad" type="text" class="form-control validate" id="Cantidad" required>
+        </div>
+        <div class="input-group mt-3">
+            <button name="btnFactura" type="submit" class="btn btn-primary d-inline-block mx-auto">Facturar</button>
+        </div>
+    </form>
     <div class="sidebar">
         <span class="close-btn" onclick="toggleSidebar()">&times;</span>
         <h2>Menú</h2>
-        <a href="index.php">Inicio</a>
+        <a href="Admin.php">Inicio</a>
         <a href="citas.php">Citas</a>
-        <a href="inventario.php">Productos</a>
-        <a href="login.php">Login</a>
+        <a href="vehiculosAdmin.php">Vehículos</a>
+        <a href="login.php">Cerrar</a>
     </div>
-
     <div class="content">
         <div class="subtitle">
             <div class="subtitle-box">
-                <h1>Gestión de Vehículos</h1>
+                <h1>Lista de Productos</h1>
             </div>
         </div>
-
-        <div class="container">
-            <h2 class="mt-5">Registrar Nuevo Vehículo</h2>
-            <form action="Model/ModelVehiculo.php" method="post">
-                <input type="hidden" id="id_cliente" name="id_cliente" value="<?php echo $_SESSION['ID_CLIENTE']; ?>">
-
-                <div class="form-group">
-                    <label for="placa">Placa</label>
-                    <input type="text" class="form-control" id="placa" name="placa" required>
-                </div>
-                <div class="form-group">
-                    <label for="tipo">Tipo</label>
-                    <input type="text" class="form-control" id="tipo" name="tipo" required>
-                </div>
-                <div class="form-group">
-                    <label for="marca">Marca</label>
-                    <input type="text" class="form-control" id="marca" name="marca" required>
-                </div>
-                <div class="form-group">
-                    <label for="modelo">Modelo</label>
-                    <input type="text" class="form-control" id="modelo" name="modelo" required>
-                </div>
-                <div class="form-group">
-                    <label for="año">Año</label>
-                    <input type="number" class="form-control" id="año" name="año" required>
-                </div>
-                <button type="submit" name="btnAgregarVehiculo" class="btn btn-primary">Registrar Vehículo</button>
-            </form>
-        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID Producto</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($articulos)): ?>
+                    <?php foreach ($articulos as $articulo): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($articulo['ID_PRODUCTO']); ?></td>
+                            <td><?php echo htmlspecialchars($articulo['NOMBRE']); ?></td>
+                            <td><?php echo htmlspecialchars($articulo['DESCRIPCION']); ?></td>
+                            <td><?php echo htmlspecialchars($articulo['CANTIDAD']); ?></td>
+                            <td><?php echo htmlspecialchars($articulo['PRECIO']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="5">No se encontraron productos.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
     </div>
-
     <div class="footer">
         <p>© 2024 Derechos reservados Grupo#7</p>
     </div>
 </body>
 
 </html>
- 

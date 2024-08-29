@@ -202,9 +202,9 @@
     <div class="sidebar">
         <span class="close-btn" onclick="toggleSidebar()">&times;</span>
         <h2>Menú</h2>
-        <a href="index.php">Inicio</a>
-        <a href="vehiculos.php">Vehículos</a>
-        <a href="inventario.php">Productos</a>
+        <a href="Admin.php">Inicio</a>
+        <a href="vehiculosAdmin.php">Vehículos</a>
+        <a href="InventarioAdmin.php">Productos</a>
         <a href="login.php">Login</a>
     </div>
 
