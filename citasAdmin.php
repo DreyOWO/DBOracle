@@ -1,10 +1,22 @@
+<?php
+
+include_once('D:/XAMPP/htdocs/DBProyecto/config/conne.php');
+include_once('./Model/ModelCita.php');
+
+$citasModel = new CitasModel($conn);
+
+$citas = $citasModel->obtenerCitas();
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Citas</title>
+    <title>Administración de Citas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
@@ -203,50 +215,91 @@
         <span class="close-btn" onclick="toggleSidebar()">&times;</span>
         <h2>Menú</h2>
         <a href="Admin.php">Inicio</a>
-        <a href="vehiculos.php">Vehículos</a>
-        <a href="Inventario.php">Productos</a>
+        <a href="vehiculosAdmin.php">Vehículos</a>
+        <a href="InventarioAdmin.php">Productos</a>
         <a href="login.php">Login</a>
     </div>
-
     <div class="subtitle">
         <div class="subtitle-box">
-            <h1>Gestión de Citas</h1>
+            <h1>Administración de Citas</h1>
         </div>
     </div>
-
     <div class="container">
-        <h2 class="mt-5">Programar Nueva Cita</h2>
-        <form action="Model/ModelCita.php" method="post">
-            <input type="hidden" name="id_cliente" value="<?php echo $_SESSION['ID_CLIENTE']; ?>">
-            <div class="form-group">
-                <label for="placa">Placa del Vehículo</label>
-                <input type="text" class="form-control" id="placa" name="placa" required>
-            </div>
-            <div class="form-group">
-                <label for="fecha">Fecha</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" required>
-            </div>
-            <div class="form-group">
-                <label for="motivo">Motivo</label>
-                <input type="text" class="form-control" id="motivo" name="motivo" required>
-            </div>
-            <button type="submit" name="btnAgregarCita" class="btn btn-primary">Programar Cita</button>
-        </form>
+        <h2 class="mt-5">Lista de Citas Programadas</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID Cita</th>
+                    <th>Placa del Vehículo</th>
+                    <th>Fecha</th>
+                    <th>Motivo</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($citas as $cita): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($cita['ID_CITA']); ?></td>
+                        <td><?php echo htmlspecialchars($cita['PLACA']); ?></td>
+                        <td><?php echo htmlspecialchars($cita['FECHA']); ?></td>
+                        <td><?php echo htmlspecialchars($cita['MOTIVO']); ?></td>
+                        <td><?php echo htmlspecialchars($cita['ESTADO']); ?></td>
+                    </tr>
+        </div>
+    <?php endforeach; ?>
+    </tbody>
+    </table>
+    </div>
+    <h2 class="mt-5">Agregar un Comentario</h2>
+    <form action="Model/ModelCita.php" method="post">
+        <div class="form-group">
+            <label for="id_cita">ID Cita</label>
+            <input type="text" class="form-control" id="id_cita" name="id_cita" required>
+            <label for="comentario">Comentario</label>
+            <input type="text" class="form-control" id="comentario" name="comentario" required>
+        </div>
+        <button type="submit" name="btnAgregarComnt" class="btn btn-danger">Agregar Comentario</button>
+    </form>
+    <h2 class="mt-5">Programar Nueva Cita</h2>
+    <form action="Model/ModelCita.php" method="post">
+        <input type="hidden" name="id_cliente" value="<?php echo $_SESSION['ID_CLIENTE']; ?>">
+        <div class="form-group">
+            <label for="placa">Placa del Vehículo</label>
+            <input type="text" class="form-control" id="placa" name="placa" required>
+        </div>
+        <div class="form-group">
+            <label for="fecha">Fecha</label>
+            <input type="date" class="form-control" id="fecha" name="fecha" required>
+        </div>
+        <div class="form-group">
+            <label for="motivo">Motivo</label>
+            <input type="text" class="form-control" id="motivo" name="motivo" required>
+        </div>
+        <button type="submit" name="btnAgregarCita" class="btn btn-primary">Programar Cita</button>
+    </form>
 
-        <h2 class="mt-5">Cancelar Cita</h2>
-        <form action="Model/ModelCita.php" method="post">
-            <div class="form-group">
-                <label for="id_cita">ID Cita</label>
-                <input type="text" class="form-control" id="id_cita" name="id_cita" required>
-            </div>
-            <button type="submit" name="btnEliminarCita" class="btn btn-danger">Cancelar Cita</button>
-        </form>
+    <h2 class="mt-5">Cancelar Cita</h2>
+    <form action="Model/ModelCita.php" method="post">
+        <div class="form-group">
+            <label for="id_cita">ID Cita</label>
+            <input type="text" class="form-control" id="id_cita" name="id_cita" required>
+        </div>
+        <button type="submit" name="btnCancelarCita" class="btn btn-danger">Cancelar Cita</button>
+    </form>
     </div>
 
+    <h2 class="mt-5">Eliminar una Cita</h2>
+    <form action="Model/ModelCita.php" method="post">
+        <div class="form-group">
+            <label for="id_cita">ID Cita</label>
+            <input type="text" class="form-control" id="id_cita" name="id_cita" required>
+        </div>
+        <button type="submit" name="btnEliminarCita" class="btn btn-danger">Eliminar Cita</button>
+    </form>
+
     <div class="footer">
-        <p>© 2024 Derechos reservados Grupo#7</p>
+        <p>Taller de Enderezado y Pintura Burgos - Todos los derechos reservados © 2024</p>
     </div>
 </body>
 
 </html>
- 

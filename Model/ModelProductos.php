@@ -1,5 +1,7 @@
 <?php
 
+// Incluir la conexión a la base de datos
+include_once('D:/XAMPP/htdocs/DBProyecto/config/conne.php');
 
 
 ini_set('display_errors', 1);
@@ -11,6 +13,19 @@ class ModelProductos {
 
     public function __construct($conn) {
         $this->conn = $conn;
+    }
+
+    public function agregarProducto($id_producto, $nombre, $descripcion, $cantidad, $precio) {
+        $stid = oci_parse($this->conn, 'BEGIN InsertarNuevoProducto(:p_ID_PRODUCTO, :p_NOMBRE, :p_DESCRIPCION, :p_CANTIDAD, :p_PRECIO); END;');
+
+        oci_bind_by_name($stid, ':p_ID_PRODUCTO', $id_producto);
+        oci_bind_by_name($stid, ':p_NOMBRE', $nombre);
+        oci_bind_by_name($stid, ':p_DESCRIPCION', $descripcion);
+        oci_bind_by_name($stid, ':p_CANTIDAD', $cantidad);
+        oci_bind_by_name($stid, ':p_PRECIO', $precio);
+
+        oci_execute($stid);
+        oci_commit($this->conn);
     }
 
     public function obtenerArticulos() {
@@ -41,6 +56,38 @@ class ModelProductos {
 
         return $articulos;
     }
+
+    public function agregarStock($id_producto, $cantidad) {
+        try {
+            // Preparar la llamada al procedimiento almacenado
+            $stid = oci_parse($this->conn, 'BEGIN AgregarStock(:id_producto, :cantidad); END;');
+            // Enlazar los parámetros del procedimiento
+            oci_bind_by_name($stid, ':id_producto', $id_producto, -1, SQLT_INT);
+            oci_bind_by_name($stid, ':cantidad', $cantidad, -1, SQLT_INT);
+            // Ejecutar el procedimiento
+            oci_execute($stid);
+            return true;
+        } catch (Exception $e) {
+            // Manejar errores
+            return false;
+        }
+    }
+
+    public function eliminarProducto($id_producto) {
+        try {
+            // Preparar la llamada al procedimiento almacenado
+            $stid = oci_parse($this->conn, 'BEGIN EliminarProducto(:id_producto); END;');
+            // Enlazar el parámetro del procedimiento
+            oci_bind_by_name($stid, ':id_producto', $id_producto, -1, SQLT_INT);
+            // Ejecutar el procedimiento
+            oci_execute($stid);
+            return true;
+        } catch (Exception $e) {
+            // Manejar errores
+            return false;
+        }
+    }
+
     public function actualizarCantidadDeProducto($idProducto, $cantidad) {
         $sql = 'BEGIN ActualizarCantidadDeProducto(:p_Id_producto, :p_Cantidad); END;';
         $stid = oci_parse($this->conn, $sql);

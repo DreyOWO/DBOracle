@@ -167,29 +167,61 @@ oci_close($conn);
         <h1>Taller Enderezado y Pintura Burgos</h1>
         <img src="images/logo.png" alt="Logo" class="logo">
     </div>
-    <div class="subtitle">
+    <div class="content">
+        <div class="subtitle">
             <div class="subtitle-box">
-                <h1>Venta</h1>
+                <h1>Agregar Producto</h1>
             </div>
         </div>
-    <form action="./controllers/controllerVentas.php" method="post">
-        <div class="input-group">
-            <label for="ID_Producto" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">ID del Producto</label>
-            <input name="ID_Producto" type="text" class="form-control validate col-xl-9 col-lg-8 col-md-8 col-sm-7" id="ID_Producto" required>
-        </div>
-        <div class="input-group mt-3">
-            <label for="Cantidad" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Cantidad de objetos</label>
-            <input name="Cantidad" type="text" class="form-control validate" id="Cantidad" required>
-        </div>
-        <div class="input-group mt-3">
-            <button name="btnFactura" type="submit" class="btn btn-primary d-inline-block mx-auto">Facturar</button>
-        </div>
-    </form>
+        <form action="./controllers/controllerVentas.php" method="post">
+            <div class="form-group">
+                <label for="ID_PRODUCTO">ID Producto:</label>
+                <input type="number" id="ID_PRODUCTO" name="ID_PRODUCTO" required>
+            </div>
+            <div class="form-group">
+                <label for="NOMBRE">Nombre:</label>
+                <input type="text" id="NOMBRE" name="NOMBRE" required>
+            </div>
+            <div class="form-group">
+                <label for="DESCRIPCION">Descripción:</label>
+                <input type="text" id="DESCRIPCION" name="DESCRIPCION">
+            </div>
+            <div class="form-group">
+                <label for="CANTIDAD">Cantidad:</label>
+                <input type="number" id="CANTIDAD" name="CANTIDAD" required>
+            </div>
+            <div class="form-group">
+                <label for="PRECIO">Precio:</label>
+                <input type="number" step="0.01" id="PRECIO" name="PRECIO" required>
+            </div>
+            <button type="submit" name="btnAgregarProducto" class="btn btn-primary">Agregar Producto</button>
+        </form>
+
+        <body>
+            <h1>Eliminar Producto</h1>
+            <form action="controllers/controllerVentas.php" method="post">
+                <label for="id_producto">ID del Producto:</label>
+                <input type="number" id="id_producto" name="id_producto" required>
+                <input type="hidden" name="action" value="eliminar_producto">
+                <button type="submit" name="btnEliminarProducto" class="btn btn-primary">Agregar Producto</button>
+            </form>
+        </body>
+        <h1>Agregar Producto al Stock</h1>
+        <form action="controllers/controllerVentas.php" method="post">
+            <label for="id_producto">ID del Producto:</label>
+            <input type="number" id="id_producto" name="id_producto" required>
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" required>
+            <input type="hidden" name="action" value="agregar_stock">
+            <button type="submit" name="btnAgregarStock" class="btn btn-primary">Agregar al Stock</button>
+        </form>
+    </div>
+    </div>
     <div class="sidebar">
         <span class="close-btn" onclick="toggleSidebar()">&times;</span>
         <h2>Menú</h2>
         <a href="Admin.php">Inicio</a>
-        <a href="citas.php">Citas</a>
+        <a href="citasAdmin.php">Citas</a>
         <a href="vehiculosAdmin.php">Vehículos</a>
         <a href="login.php">Cerrar</a>
     </div>

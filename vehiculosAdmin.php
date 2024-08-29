@@ -186,8 +186,8 @@ include_once('./Model/ModelVehiculo.php');
         <span class="close-btn" onclick="toggleSidebar()">&times;</span>
         <h2>Menú</h2>
         <a href="Admin.php">Inicio</a>
-        <a href="citas.php">Citas</a>
-        <a href="inventario.php">Productos</a>
+        <a href="citasAdmin.php">Citas</a>
+        <a href="InventarioAdmin.php">Productos</a>
         <a href="login.php">Login</a>
     </div>
 

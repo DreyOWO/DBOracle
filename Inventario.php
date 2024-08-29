@@ -1,7 +1,8 @@
 <?php
-session_start();
+
 include_once('D:/XAMPP/htdocs/DBProyecto/config/conne.php');
 include_once('./Model/ModelProductos.php');
+
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -10,8 +11,10 @@ error_reporting(E_ALL);
 // Crear una instancia del modelo de productos
 $modeloProductos = new ModelProductos($conn);
 
+
 // Obtener los artículos
 $articulos = $modeloProductos->obtenerArticulos();
+
 
 // Liberar la conexión
 oci_close($conn);
