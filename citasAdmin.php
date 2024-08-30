@@ -298,8 +298,8 @@ $citas = $citasModel->obtenerCitas();
             <form action="Model/ModelCita.php" method="post">
                 <h2>Cancelar Cita</h2>
                 <div class="form-group">
-                    <label for="id_cita_cancelar">ID Cita</label>
-                    <input type="text" class="form-control" id="id_cita_cancelar" name="id_cita_cancelar" required>
+                    <label for="id_cita">ID Cita</label>
+                    <input type="text" class="form-control" id="id_cita" name="id_cita" required>
                 </div>
                 <button type="submit" name="btnCancelar" class="btn btn-danger">Cancelar Cita</button>
             </form>
@@ -307,8 +307,8 @@ $citas = $citasModel->obtenerCitas();
             <form action="Model/ModelCita.php" method="post">
                 <h2>Eliminar una Cita</h2>
                 <div class="form-group">
-                    <label for="id_cita_eliminar">ID Cita</label>
-                    <input type="text" class="form-control" id="id_cita_eliminar" name="id_cita_eliminar" required>
+                    <label for="id_cita">ID Cita</label>
+                    <input type="text" class="form-control" id="id_cita" name="id_cita" required>
                 </div>
                 <button type="submit" name="btnEliminar" class="btn btn-danger">Eliminar Cita</button>
             </form>

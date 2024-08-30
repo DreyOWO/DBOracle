@@ -41,7 +41,7 @@ class CitasModel {
     }
 }
 
-if (isset($_POST['btnAgregarCita'])) {
+if (isset($_POST['btnProgramar'])) {
     // Obtener los datos del formulario
     $placa = $_POST['placa'];
     $fecha = $_POST['fecha'];
@@ -87,7 +87,7 @@ if (isset($_POST['btnAgregarCita'])) {
     oci_close($conn);
 }
 
-if (isset($_POST['btnCancelarCita'])) {
+if (isset($_POST['btnCancelar'])) {
     // Obtener el ID_CITA desde el formulario
     $id_cita = $_POST['id_cita'];
 
@@ -136,7 +136,7 @@ if (isset($_POST['id_cita']) && isset($_POST['comentario'])) {
 }
 
 // Verificar si el botón ha sido presionado
-if (isset($_POST['btnEliminarCita'])) {
+if (isset($_POST['btnEliminar'])) {
     // Verificar si se ha enviado el ID de la cita
     if (isset($_POST['id_cita'])) {
         $idCita = $_POST['id_cita'];
